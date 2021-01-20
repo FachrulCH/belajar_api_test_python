@@ -103,3 +103,24 @@ def test_update_favorite_note():
             print(f"Found the modified airport {id_airport_to_modify}")
             print("\nHere is the check for specific airport in an array data")
             assert_that(airport_data["attributes"]["note"]).is_equal_to(new_note["note"])
+
+
+def test_delete_favorite():
+    give_me_token = get_token(email="naruto@mailinator.com", password="shuriken")
+    token = give_me_token.json().get("token")
+
+    before_add = get_my_favorite_airport(token)
+    data_before = before_add.json().get("data")
+
+    assert_that(len(data_before)).is_greater_than(0)
+    id_airport_to_delete = data_before[0]["id"]
+
+    header = {
+        "Authorization": f"Token {token}"
+    }
+
+    response = requests.delete(f"{BASE_URL}/favorites/{id_airport_to_delete}", headers=header)
+    assert_that(response.status_code).is_equal_to(204)
+    after_delete = get_my_favorite_airport(token)
+    data_after = after_delete.json().get("data")
+    assert_that(len(data_after)).is_less_than(len(data_before))
