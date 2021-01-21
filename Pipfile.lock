@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4967fefbec7a033b0bfae5f3cb4f31eef73a421dd234bccdc5c93eea00559592"
+            "sha256": "3248ab3ff73cddd3ec224f92b6c744b68bee0b19bcf40a86d955b8d4024afcfe"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -45,6 +45,13 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==4.0.0"
+        },
+        "curlify": {
+            "hashes": [
+                "sha256:0d3f02e7235faf952de8ef45ef469845196d30632d5838bcd5aee217726ddd6d"
+            ],
+            "index": "pypi",
+            "version": "==2.2.1"
         },
         "idna": {
             "hashes": [
