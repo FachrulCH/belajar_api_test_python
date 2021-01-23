@@ -1,11 +1,11 @@
-import logging
+from pprint import pprint
 
 import curlify
 import requests
 
 
-def format_console(first, second):
-    return "{:>7} : {}".format(first, second)
+def print_console(first, second):
+    print("{:>7} : {}".format(first, second))
 
 
 class APIClient(requests.Session):
@@ -18,22 +18,17 @@ class APIClient(requests.Session):
     @staticmethod
     def _logging(response: requests.Response, *args, **kwargs):
         """Function to handle logging in hook['response'] """
-        logging.info("----------- Request ----------->")
-        logging.info(format_console(response.request.method, response.request.url))
-        logging.info(format_console("HEADERS", response.request.headers))
-        logging.info(format_console("DEBUG", curlify.to_curl(response.request)))
-        # print(format_console("DEBUG", curlify.to_curl(response.request)))
+        print("\n----------- Request ----------->")
+        print_console(response.request.method, response.request.url)
+        print_console("HEADERS", response.request.headers)
+        print_console("DEBUG", curlify.to_curl(response.request))
         if response.request.body is not None:
-            logging.info(format_console("BODY", response.request.body))
+            print_console("BODY", response.request.body)
 
-        logging.info("<----------- Response -----------")
-        logging.info(
-            format_console(
-                "STATUS",
-                f"{response.status_code}, elapsed: {response.elapsed.total_seconds()}s",
-            )
-        )
-        logging.info(format_console("HEADER", response.headers))
+        print("<----------- Response -----------")
+        print_console("STATUS", f"{response.status_code}, elapsed: {response.elapsed.total_seconds()}s",)
+
+        print_console("HEADER", response.headers)
         if response.text != "":
-            logging.info(format_console("BODY", response.text))
-            # print(format_console("BODY", response.text))
+            print_console("BODY", "")
+            pprint(response.json())
