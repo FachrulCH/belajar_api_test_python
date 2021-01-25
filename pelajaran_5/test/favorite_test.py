@@ -1,7 +1,6 @@
-from datetime import datetime
-
 import pytest
 from assertpy import assert_that
+from faker import Faker
 
 from pelajaran_5.api_client.favorite import FavoriteAPI
 
@@ -25,9 +24,10 @@ def test_update_favorite_note(favorite_api):
     data_before = before_add.json().get("data")
     assert_that(len(data_before)).is_greater_than(0)
     id_airport_to_modify = data_before[0]["id"]
-    # Add dynamic unique string with a timestamp
+    # Add dynamic note
+    fake = Faker()
     new_note = {
-        "note": f"The note for ID:{id_airport_to_modify} is changed at time: {datetime.now()} "
+        "note": fake.sentence()
     }
 
     response = favorite_api.update_favorite_note(id_airport_to_modify, new_note)
